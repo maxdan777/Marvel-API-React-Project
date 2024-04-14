@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import MarvelService from '../../services/MarvelService';
+import useMarvelService from '../../services/MarvelService';
 
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
@@ -9,10 +9,8 @@ import mjolnir from '../../resources/img/mjolnir.png';
 const RandomChar = () => {
     
     const [char, setChar] = useState({});
-    const [loading, setLoading] = useState(true); //изначально загрузка в true, чтобы работал спинер
-    const [error, setError] = useState(false);
 
-    const marvelService = new MarvelService();
+    const {loading, error, getCharacter, clearError} = useMarvelService();
 
     useEffect(() => {
         updateChar();
@@ -25,26 +23,13 @@ const RandomChar = () => {
 
     const onCharLoaded = (char) => {
         setChar(char);
-        setLoading(false);
-        //после полной подгрузки случайного героя загрузка переходит в false, чтобы спинер исчез
-    }
-
-    const onCharLoading = () => {
-        setLoading(true);
-    }
-
-    const onError = () => {
-        setError(true);
-        setLoading(false);
     }
 
     const updateChar = () => {
+        clearError();
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-        onCharLoading();
-        marvelService
-            .getCharacter(id) //подгружается персонаж по случайному id
+        getCharacter(id) //подгружается персонаж по случайному id
             .then(onCharLoaded) //если id существует, персонаж подгружается
-            .catch(onError) //если id не существует, вылетает ошибка
     }
 
     const errorMessage = error ? <ErrorMessage/> : null;
