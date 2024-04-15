@@ -4,38 +4,61 @@ import RandomChar from "../randomChar/RandomChar";
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
+import AppBanner from "../appBanner/AppBanner";
+import ComicsList from "../comicsList/ComicsList";
+import SingleComic from "../singleComic/SingleComic";
 
 import decoration from '../../resources/img/vision.png';
 
 const App = () => {
 
     const [selectedChar, setChar] = useState(null);
+    const [selectedComic, setComic] = useState(null);
 
     const onCharSelected = (id) => {
         setChar(id);
     }
 
+    const onComicSelected = (id) => {
+        setComic(id);
+    }
 
     return (
         <div className="app">
             <AppHeader/>
             <main>
-                <ErrorBoundary>
+                {/* <ErrorBoundary>
                     <RandomChar/>
                 </ErrorBoundary>
                 <div className="char__content">
                     <ErrorBoundary>
-                        <CharList onCharSelected={onCharSelected}/> 
+                        <CharList onCharSelected={onCharSelected}/>
                     </ErrorBoundary>
                     <ErrorBoundary>
                         <CharInfo charId={selectedChar}/>
-                    </ErrorBoundary>                        
+                    </ErrorBoundary>
                 </div>
-                <img className="bg-decoration" src={decoration} alt="vision"/>
+                <img className="bg-decoration" src={decoration} alt="vision"/> */}
+                <AppBanner/>
+                <ComicsList/>
             </main>
         </div>
     )
-
 }
+
+    // return (
+    //     <div className="app">
+    //         <AppHeader/>
+    //         <AppBanner/>
+    //         <main>
+    //             <div className="comic__content">
+    //                 <ErrorBoundary>
+    //                     <SingleComic comicId={selectedComic}/>
+    //                 </ErrorBoundary>                        
+    //             </div>
+    //         </main>
+    //     </div>
+    // )
+
 
 export default App;
