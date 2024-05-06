@@ -1,9 +1,6 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-import {MainPage, ComicsPage} from '../pages'
 import AppHeader from "../appHeader/AppHeader";
-
-import SingleComic from "../singleComic/SingleComic";
+import {MainPage, ComicsPage} from '../pages'
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const App = () => {
 
@@ -12,40 +9,14 @@ const App = () => {
             <div className="app">
                 <AppHeader/>
                 <main>
-                    <Switch>
-                        <Route exact path="/">
-                            <MainPage/>
-                        </Route>
-                        <Route exact path="/comics">
-                            <ComicsPage/>
-                        </Route>
-                    </Switch>
+                    <Routes>
+                        <Route path="/" element={<MainPage/>}/>
+                        <Route path="/comics" element={<ComicsPage/>}/>
+                    </Routes>
                 </main>
             </div>
         </Router>
     )
 }
-
-
-// const [selectedComic, setComic] = useState(null);
-
-// const onComicSelected = (id) => {
-//     setComic(id);
-// }
-
-    // return (
-    //     <div className="app">
-    //         <AppHeader/>
-    //         <AppBanner/>
-    //         <main>
-    //             <div className="comic__content">
-    //                 <ErrorBoundary>
-    //                     <SingleComic comicId={selectedComic}/>
-    //                 </ErrorBoundary>                        
-    //             </div>
-    //         </main>
-    //     </div>
-    // )
-
 
 export default App;
