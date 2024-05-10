@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
@@ -84,7 +86,11 @@ const View = ({char}) => {
                         if (i > 9) return; //если комиксов больше 10 остальные не возвращает, использовать только если не очень много комиксов
                         return (
                             <li key={i} className="char__comics-item">
-                                {item.name}
+                                <Link 
+                                    to={`/comics/${item.resourceURI.split('/').pop()}`}
+                                    style={{'width': '100%'}}>
+                                        {item.name}
+                                </Link>
                             </li>    
                         )
                     })
